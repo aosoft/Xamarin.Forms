@@ -23,7 +23,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public Ticker CreateTicker()
 		{
-			throw new NotImplementedException();
+			return new WinFormsTicker();
 		}
 
 		public Assembly[] GetAssemblies()
