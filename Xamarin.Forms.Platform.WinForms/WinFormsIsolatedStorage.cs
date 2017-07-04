@@ -1,115 +1,92 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.FileProperties;
-using Windows.Storage.Streams;
 using Xamarin.Forms.Internals;
 
-#if WINDOWS_UWP
-
-namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
+namespace Xamarin.Forms.Platform.WinForms
 {
-	internal class WindowsIsolatedStorage : IIsolatedStorageFile
+	internal class WinFormsIsolatedStorage : IIsolatedStorageFile
 	{
-		 StorageFolder _folder;
-
-		public WindowsIsolatedStorage(StorageFolder folder)
+		public WinFormsIsolatedStorage()
 		{
-			if (folder == null)
-				throw new ArgumentNullException("folder");
-
-			_folder = folder;
 		}
 
 		public Task CreateDirectoryAsync(string path)
 		{
-			return _folder.CreateFolderAsync(path).AsTask();
+			return Task.Run(() => Directory.CreateDirectory(path));
 		}
 
-		public async Task<bool> GetDirectoryExistsAsync(string path)
+		public Task<bool> GetDirectoryExistsAsync(string path)
 		{
-			try
-			{
-				await _folder.GetFolderAsync(path).AsTask().ConfigureAwait(false);
-				return true;
-			}
-			catch (FileNotFoundException)
-			{
-				return false;
-			}
+			return Task.Run<bool>(() => Directory.Exists(path));
 		}
 
-		public async Task<bool> GetFileExistsAsync(string path)
+		public Task<bool> GetFileExistsAsync(string path)
 		{
-			try
-			{
-				await _folder.GetFileAsync(path).AsTask().ConfigureAwait(false);
-				return true;
-			}
-			catch (FileNotFoundException)
-			{
-				return false;
-			}
+			return Task.Run<bool>(() => File.Exists(path));
 		}
 
-		public async Task<DateTimeOffset> GetLastWriteTimeAsync(string path)
+		public Task<DateTimeOffset> GetLastWriteTimeAsync(string path)
 		{
-			StorageFile file = await _folder.GetFileAsync(path).AsTask().ConfigureAwait(false);
-			BasicProperties properties = await file.GetBasicPropertiesAsync().AsTask().ConfigureAwait(false);
-			return properties.DateModified;
+			return Task.Run<DateTimeOffset>(() => new DateTimeOffset(File.GetLastWriteTime(path)));
 		}
 
-		public async Task<Stream> OpenFileAsync(string path, Internals.FileMode mode, Internals.FileAccess access)
+		public Task<Stream> OpenFileAsync(string path, Internals.FileMode mode, Internals.FileAccess access)
 		{
-			StorageFile file;
-
-			switch (mode)
+			return Task.Run<Stream>(() =>
 			{
-				case Internals.FileMode.CreateNew:
-					file = await _folder.CreateFileAsync(path, CreationCollisionOption.FailIfExists).AsTask().ConfigureAwait(false);
-					break;
+				System.IO.FileMode mode2;
+				System.IO.FileAccess access2;
 
-				case Internals.FileMode.Create:
-				case Internals.FileMode.Truncate: // TODO See if ReplaceExisting already truncates
-					file = await _folder.CreateFileAsync(path, CreationCollisionOption.ReplaceExisting).AsTask().ConfigureAwait(false);
-					break;
+				switch (mode)
+				{
+					case Internals.FileMode.CreateNew:
+						mode2 = System.IO.FileMode.CreateNew;
+						break;
 
-				case Internals.FileMode.OpenOrCreate:
-				case Internals.FileMode.Append:
-					file = await _folder.CreateFileAsync(path, CreationCollisionOption.OpenIfExists).AsTask().ConfigureAwait(false);
-					break;
+					case Internals.FileMode.Create:
+						mode2 = System.IO.FileMode.Create;
+						break;
 
-				case Internals.FileMode.Open:
-					file = await _folder.GetFileAsync(path);
-					break;
+					case Internals.FileMode.Truncate:
+						mode2 = System.IO.FileMode.Truncate;
+						break;
 
-				default:
-					throw new ArgumentException("mode was an invalid FileMode", "mode");
-			}
+					case Internals.FileMode.OpenOrCreate:
+						mode2 = System.IO.FileMode.OpenOrCreate;
+						break;
 
-			switch (access)
-			{
-				case Internals.FileAccess.Read:
-					return await file.OpenStreamForReadAsync().ConfigureAwait(false);
-				case Internals.FileAccess.Write:
-					Stream stream = await file.OpenStreamForWriteAsync().ConfigureAwait(false);
-					if (mode == Internals.FileMode.Append)
-						stream.Position = stream.Length;
+					case Internals.FileMode.Append:
+						mode2 = System.IO.FileMode.Append;
+						break;
 
-					return stream;
+					case Internals.FileMode.Open:
+						mode2 = System.IO.FileMode.Open;
+						break;
 
-				case Internals.FileAccess.ReadWrite:
-					IRandomAccessStream randStream = await file.OpenAsync(FileAccessMode.ReadWrite).AsTask().ConfigureAwait(false);
-					return randStream.AsStream();
+					default:
+						throw new ArgumentException("mode was an invalid FileMode", "mode");
+				}
 
-				default:
-					throw new ArgumentException("access was an invalid FileAccess", "access");
-			}
+				switch (access)
+				{
+					case Internals.FileAccess.Read:
+						access2 = System.IO.FileAccess.Read;
+						break;
+					case Internals.FileAccess.Write:
+						access2 = System.IO.FileAccess.Write;
+						break;
+
+					case Internals.FileAccess.ReadWrite:
+						access2 = System.IO.FileAccess.ReadWrite;
+						break;
+
+					default:
+						throw new ArgumentException("access was an invalid FileAccess", "access");
+				}
+
+				return new FileStream(path, mode2, access2);
+			});
 		}
 
 		public Task<Stream> OpenFileAsync(string path, Internals.FileMode mode, Internals.FileAccess access, Internals.FileShare share)

@@ -15,20 +15,22 @@ namespace Xamarin.Forms.Platform.WinForms
 	internal class WinFormsPlatformServices : IPlatformServices
 	{
 		private System.Windows.Forms.Form _mainForm;
+		private int _currentThreadId;
 		static private readonly MD5CryptoServiceProvider _md5 = new MD5CryptoServiceProvider();
 
-		protected WinFormsPlatformServices(System.Windows.Forms.Form mainForm)
+		protected WinFormsPlatformServices(System.Windows.Forms.Form mainForm, int currentThreadId)
 		{
 			if (mainForm == null)
 			{
 				throw new ArgumentNullException(nameof(mainForm));
 			}
 			_mainForm = mainForm;
+			_currentThreadId = currentThreadId;
 		}
 
-		public bool IsInvokeRequired => throw new NotImplementedException();
+		public bool IsInvokeRequired => Thread.CurrentThread.ManagedThreadId != _currentThreadId;
 
-		public string RuntimePlatform => throw new NotImplementedException();
+		public string RuntimePlatform => "WinForms";
 
 		public void BeginInvokeOnMainThread(Action action)
 		{
@@ -80,7 +82,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public IIsolatedStorageFile GetUserStoreForApplication()
 		{
-			throw new NotImplementedException();
+			return new WinFormsIsolatedStorage();
 		}
 
 		public void OpenUriAction(Uri uri)
