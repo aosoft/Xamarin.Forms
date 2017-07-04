@@ -12,13 +12,24 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	internal class WinFormsPlatformServices : IPlatformServices
 	{
+		private System.Windows.Forms.Form _mainForm;
+
+		protected WinFormsPlatformServices(System.Windows.Forms.Form mainForm)
+		{
+			if (mainForm == null)
+			{
+				throw new ArgumentNullException(nameof(mainForm));
+			}
+			_mainForm = mainForm;
+		}
+
 		public bool IsInvokeRequired => throw new NotImplementedException();
 
 		public string RuntimePlatform => throw new NotImplementedException();
 
 		public void BeginInvokeOnMainThread(Action action)
 		{
-			throw new NotImplementedException();
+			_mainForm.BeginInvoke(action);
 		}
 
 		public Ticker CreateTicker()
