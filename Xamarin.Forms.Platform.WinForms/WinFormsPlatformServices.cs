@@ -18,7 +18,7 @@ namespace Xamarin.Forms.Platform.WinForms
 		private int _currentThreadId;
 		static private readonly MD5CryptoServiceProvider _md5 = new MD5CryptoServiceProvider();
 
-		protected WinFormsPlatformServices(System.Windows.Forms.Form mainForm, int currentThreadId)
+		internal WinFormsPlatformServices(System.Windows.Forms.Form mainForm, int currentThreadId)
 		{
 			if (mainForm == null)
 			{
@@ -87,12 +87,27 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public void OpenUriAction(Uri uri)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				System.Diagnostics.Process.Start(uri.PathAndQuery);
+			}
+			catch
+			{
+			}
 		}
 
 		public void StartTimer(TimeSpan interval, Func<bool> callback)
 		{
-			throw new NotImplementedException();
+			var timer = new System.Windows.Forms.Timer();
+			timer.Interval = (int)interval.TotalMilliseconds;
+			timer.Tick += (s, e) =>
+			{
+				if (callback() == false)
+				{
+					timer.Stop();
+				}
+			};
+			timer.Start();
 		}
 	}
 }
