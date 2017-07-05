@@ -24,13 +24,14 @@ namespace Xamarin.Forms.Platform.WinForms
 
 			Device.PlatformServices = new WinFormsPlatformServices(mainForm, Thread.CurrentThread.ManagedThreadId);
 			Device.SetIdiom(TargetIdiom.Desktop);
-			/*
 			Device.Info = new WinFormsDeviceInfo();
 
 			Internals.Registrar.RegisterAll(new[]
 				{ typeof(ExportRendererAttribute), typeof(ExportCellAttribute), typeof(ExportImageSourceHandlerAttribute) });
 			ExpressionSearch.Default = new WinFormsExpressionSearch();
-			*/
+
+			System.Windows.Forms.Application.Run(mainForm);
+
 			IsInitialized = true;
 		}
 	}
