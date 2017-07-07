@@ -9,10 +9,22 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	internal class WinFormsDeviceInfo : DeviceInfo
 	{
-		public override Size PixelScreenSize => throw new NotImplementedException();
+		Size _pixelScreenSize = new Size();
+		Size _scaledScreenSize = new Size();
+		double _scalingFactor = 1.0;
 
-		public override Size ScaledScreenSize => throw new NotImplementedException();
+		internal WinFormsDeviceInfo()
+		{
+			//	DPI は考慮しない
+			var bounds = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
+			_pixelScreenSize = new Size(bounds.Width, bounds.Height);
+			_scaledScreenSize = _pixelScreenSize;
+		}
 
-		public override double ScalingFactor => throw new NotImplementedException();
+		public override Size PixelScreenSize => _pixelScreenSize;
+
+		public override Size ScaledScreenSize => _scaledScreenSize;
+
+		public override double ScalingFactor => _scalingFactor;
 	}
 }

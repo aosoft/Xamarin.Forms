@@ -30,8 +30,6 @@ namespace Xamarin.Forms.Platform.WinForms
 				{ typeof(ExportRendererAttribute), typeof(ExportCellAttribute), typeof(ExportImageSourceHandlerAttribute) });
 			ExpressionSearch.Default = new WinFormsExpressionSearch();
 
-			System.Windows.Forms.Application.Run(mainForm);
-
 			IsInitialized = true;
 		}
 	}
