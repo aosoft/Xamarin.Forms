@@ -50,6 +50,7 @@
     <Compile Include="WinFormsExpressionSearch.cs" />
     <Compile Include="WinFormsIsolatedStorage.cs" />
     <Compile Include="WinFormsPlatformServices.cs" />
+    <Compile Include="WinFormsSystemResourcesProvider.cs" />
     <Compile Include="WinFormsTicker.cs" />
   </ItemGroup>
   <ItemGroup>
