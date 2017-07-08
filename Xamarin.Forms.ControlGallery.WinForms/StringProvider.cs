@@ -1,6 +1,6 @@
 using Xamarin.Forms.Controls;
 
-namespace Xamarin.Forms.ControlGallery.Android
+namespace Xamarin.Forms.ControlGallery.WinForms
 {
 	public class StringProvider : IStringProvider
 	{
@@ -8,7 +8,7 @@ namespace Xamarin.Forms.ControlGallery.Android
 		{
 			get
 			{
-				return "Android CoreGallery";
+				return "WinForms CoreGallery";
 			}
 		}
 	}
