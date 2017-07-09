@@ -28,9 +28,21 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		#region INavigation
 
-		public IReadOnlyList<Page> ModalStack => throw new NotImplementedException();
+		public IReadOnlyList<Page> ModalStack
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
-		public IReadOnlyList<Page> NavigationStack => throw new NotImplementedException();
+		public IReadOnlyList<Page> NavigationStack
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
 		public void InsertPageBefore(Page page, Page before)
 		{
