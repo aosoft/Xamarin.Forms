@@ -7,13 +7,13 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class Platform : BindableObject, IPlatform, INavigation, IDisposable
+	public class WinFormsPlatform : BindableObject, IPlatform, INavigation, IDisposable
 	{
-		#region Constructor / Dispose
+        #region Constructor / Dispose
 
-		public void Dispose()
-		{
-		}
+        public void Dispose()
+        {
+        }
 
 		#endregion
 

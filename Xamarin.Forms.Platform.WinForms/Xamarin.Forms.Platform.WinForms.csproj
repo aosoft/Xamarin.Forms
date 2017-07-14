@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="ExportRendererAttribute.cs" />
     <Compile Include="Forms.cs" />
-    <Compile Include="Platform.cs" />
+    <Compile Include="WinFormsPlatform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WinFormsDeviceInfo.cs" />
     <Compile Include="WinFormsExpressionSearch.cs" />
