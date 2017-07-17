@@ -9,7 +9,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		VisualElement Element { get; }
 
-		//event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		event EventHandler<VisualElementChangedEventArgs> ElementChanged;
 
 		SizeRequest GetDesiredSize(double widthConstraint, double heightConstraint);
 

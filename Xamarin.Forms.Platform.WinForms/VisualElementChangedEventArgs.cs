@@ -1,14 +1,8 @@
 ﻿using System;
 
-#if WINDOWS_UWP
-
-namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
+namespace Xamarin.Forms.Platform.WinForms
 {
-	public class VisualElementChangedEventArgs : ElementChangedEventArgs<VisualElement>
+    public class VisualElementChangedEventArgs : ElementChangedEventArgs<VisualElement>
 	{
 		public VisualElementChangedEventArgs(VisualElement oldElement, VisualElement newElement) : base(oldElement, newElement)
 		{

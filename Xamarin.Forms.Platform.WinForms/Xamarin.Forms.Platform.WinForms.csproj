@@ -45,6 +45,7 @@
     <Compile Include="ExportRendererAttribute.cs" />
     <Compile Include="Forms.cs" />
     <Compile Include="IVisualElementRenderer.cs" />
+    <Compile Include="VisualElementChangedEventArgs.cs" />
     <Compile Include="WinFormsPlatform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WinFormsDeviceInfo.cs" />
