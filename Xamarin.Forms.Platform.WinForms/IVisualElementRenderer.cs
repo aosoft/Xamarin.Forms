@@ -1,26 +1,20 @@
 ﻿using System;
-using Windows.UI.Xaml;
+using System.Windows.Forms;
 
-#if WINDOWS_UWP
-
-namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
+namespace Xamarin.Forms.Platform.WinForms
 {
 	public interface IVisualElementRenderer : IRegisterable, IDisposable
 	{
-		FrameworkElement ContainerElement { get; }
+		Control ContainerElement { get; }
 
 		VisualElement Element { get; }
 
-		event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		//event EventHandler<VisualElementChangedEventArgs> ElementChanged;
 
 		SizeRequest GetDesiredSize(double widthConstraint, double heightConstraint);
 
 		void SetElement(VisualElement element);
 
-		UIElement GetNativeElement();
+		Control GetNativeElement();
 	}
 }
