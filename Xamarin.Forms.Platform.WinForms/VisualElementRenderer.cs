@@ -88,6 +88,24 @@ namespace Xamarin.Forms.Platform.WinForms
 			*/
 		}
 
+		internal virtual void OnElementFocusChangeRequested(object sender, VisualElement.FocusRequestArgs args)
+		{
+			var control = Control as Control;
+			if (control == null)
+				return;
+
+			/*
+			if (args.Focus)
+				args.Result = control.Focus(FocusState.Programmatic);
+			else
+			{
+				UnfocusControl(control);
+				args.Result = true;
+			}
+			*/
+		}
+
+
 		void UpdateEnabled()
 		{
 			var control = Control as Control;
@@ -131,7 +149,6 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public void SetElement(VisualElement element)
 		{
-			/*
 			TElement oldElement = Element;
 			Element = (TElement)element;
 
@@ -146,7 +163,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				Element.PropertyChanged += OnElementPropertyChanged;
 				Element.FocusChangeRequested += OnElementFocusChangeRequested;
 
-				if (AutoPackage && Packager == null)
+				/*if (AutoPackage && Packager == null)
 					Packager = new VisualElementPackager(this);
 
 				if (AutoTrack && Tracker == null)
@@ -160,7 +177,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				//Loaded += (sender, args) => {
 				if (Packager != null)
 					Packager.Load();
-				//};
+				//};*/
 			}
 
 			OnElementChanged(new ElementChangedEventArgs<TElement>(oldElement, Element));
@@ -174,7 +191,6 @@ namespace Xamarin.Forms.Platform.WinForms
 			controller = element;
 			if (controller != null)
 				controller.EffectControlProvider = this;
-			*/
 		}
 
 		#endregion
