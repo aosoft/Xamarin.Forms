@@ -206,9 +206,65 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (Element.IsInNativeLayout)
 				return;
 
-			var parent = (FrameworkElement)Container.Parent;
+			var parent = (Control)Container.Parent;
 			parent?.InvalidateMeasure();
 			Container.InvalidateMeasure();
+		}
+
+		static void UpdateInputTransparent(VisualElement view, Control control)
+		{
+			control.IsHitTestVisible = view.IsEnabled && !view.InputTransparent;
+		}
+
+		static void UpdateOpacity(VisualElement view, Control control)
+		{
+			control.Opacity = view.Opacity;
+		}
+
+		static void UpdateRotation(VisualElement view, Control control)
+		{
+			double anchorX = view.AnchorX;
+			double anchorY = view.AnchorY;
+			double rotationX = view.RotationX;
+			double rotationY = view.RotationY;
+			double rotation = view.Rotation;
+			double translationX = view.TranslationX;
+			double translationY = view.TranslationY;
+			double scale = view.Scale;
+
+			if (rotationX % 360 == 0 && rotationY % 360 == 0 && rotation % 360 == 0 && translationX == 0 && translationY == 0 && scale == 1)
+			{
+				control.Projection = null;
+			}
+			else
+			{
+				control.Projection = new PlaneProjection
+				{
+					CenterOfRotationX = anchorX,
+					CenterOfRotationY = anchorY,
+					GlobalOffsetX = scale == 0 ? 0 : translationX / scale,
+					GlobalOffsetY = scale == 0 ? 0 : translationY / scale,
+					RotationX = -rotationX,
+					RotationY = -rotationY,
+					RotationZ = -rotation
+				};
+			}
+		}
+
+		static void UpdateScaleAndRotation(VisualElement view, Control control)
+		{
+			double anchorX = view.AnchorX;
+			double anchorY = view.AnchorY;
+			double scale = view.Scale;
+			control.RenderTransformOrigin = new Windows.Foundation.Point(anchorX, anchorY);
+			control.RenderTransform = new ScaleTransform { ScaleX = scale, ScaleY = scale };
+
+			UpdateRotation(view, control);
+		}
+
+		static void UpdateVisibility(VisualElement view, Control control)
+		{
+			control.Visibility = view.IsVisible ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 	}
