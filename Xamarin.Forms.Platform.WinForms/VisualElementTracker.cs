@@ -207,22 +207,23 @@ namespace Xamarin.Forms.Platform.WinForms
 				return;
 
 			var parent = (Control)Container.Parent;
-			parent?.InvalidateMeasure();
-			Container.InvalidateMeasure();
+			//parent?.InvalidateMeasure();
+			//Container.InvalidateMeasure();
 		}
 
 		static void UpdateInputTransparent(VisualElement view, Control control)
 		{
-			control.IsHitTestVisible = view.IsEnabled && !view.InputTransparent;
+			control.Enabled = view.IsEnabled && !view.InputTransparent;
 		}
 
 		static void UpdateOpacity(VisualElement view, Control control)
 		{
-			control.Opacity = view.Opacity;
+			//control.Opacity = view.Opacity;
 		}
 
 		static void UpdateRotation(VisualElement view, Control control)
 		{
+			/*
 			double anchorX = view.AnchorX;
 			double anchorY = view.AnchorY;
 			double rotationX = view.RotationX;
@@ -249,6 +250,7 @@ namespace Xamarin.Forms.Platform.WinForms
 					RotationZ = -rotation
 				};
 			}
+			*/
 		}
 
 		static void UpdateScaleAndRotation(VisualElement view, Control control)
@@ -256,15 +258,15 @@ namespace Xamarin.Forms.Platform.WinForms
 			double anchorX = view.AnchorX;
 			double anchorY = view.AnchorY;
 			double scale = view.Scale;
-			control.RenderTransformOrigin = new Windows.Foundation.Point(anchorX, anchorY);
-			control.RenderTransform = new ScaleTransform { ScaleX = scale, ScaleY = scale };
+			//control.RenderTransformOrigin = new Windows.Foundation.Point(anchorX, anchorY);
+			//control.RenderTransform = new ScaleTransform { ScaleX = scale, ScaleY = scale };
 
 			UpdateRotation(view, control);
 		}
 
 		static void UpdateVisibility(VisualElement view, Control control)
 		{
-			control.Visibility = view.IsVisible ? Visibility.Visible : Visibility.Collapsed;
+			control.Visible = view.IsVisible;
 		}
 
 	}
