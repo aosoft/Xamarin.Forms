@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Windows.UI.Xaml.Controls;
+using System.Windows.Forms;
 
-#if WINDOWS_UWP
-
-namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
+namespace Xamarin.Forms.Platform.WinForms
 {
 	public class VisualElementPackager : IDisposable
 	{
