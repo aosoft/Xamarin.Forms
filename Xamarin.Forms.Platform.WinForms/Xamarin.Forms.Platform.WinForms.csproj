@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvertExtensions.cs" />
+    <Compile Include="DefaultRenderer.cs" />
     <Compile Include="ExportRendererAttribute.cs" />
     <Compile Include="Forms.cs" />
     <Compile Include="IVisualElementRenderer.cs" />

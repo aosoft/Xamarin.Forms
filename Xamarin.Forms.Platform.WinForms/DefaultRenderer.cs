@@ -1,14 +1,8 @@
-﻿using Windows.UI.Xaml;
+﻿using System.Windows.Forms;
 
-#if WINDOWS_UWP
-
-namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
+namespace Xamarin.Forms.Platform.WinForms
 {
-	internal sealed class DefaultRenderer : ViewRenderer<View, FrameworkElement>
+	internal sealed class DefaultRenderer : ViewRenderer<View, Control>
 	{
 	}
 }

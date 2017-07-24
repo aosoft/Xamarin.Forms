@@ -9,9 +9,34 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class Platform : IPlatform, INavigation, IDisposable
 	{
+		internal static readonly BindableProperty RendererProperty = BindableProperty.CreateAttached("Renderer",
+			typeof(IVisualElementRenderer), typeof(Platform), default(IVisualElementRenderer));
+
+		public static IVisualElementRenderer GetRenderer(VisualElement element)
+		{
+			return (IVisualElementRenderer)element.GetValue(RendererProperty);
+		}
+
+		public static void SetRenderer(VisualElement element, IVisualElementRenderer value)
+		{
+			element.SetValue(RendererProperty, value);
+			element.IsPlatformEnabled = value != null;
+		}
+
+		public static IVisualElementRenderer CreateRenderer(VisualElement element)
+		{
+			if (element == null)
+				throw new ArgumentNullException(nameof(element));
+
+			IVisualElementRenderer renderer = Registrar.Registered.GetHandler<IVisualElementRenderer>(element.GetType()) ??
+											  new DefaultRenderer();
+			renderer.SetElement(element);
+			return renderer;
+		}
 
 		#region IDisposable Support
-		private bool disposedValue = false; // 重複する呼び出しを検出するには
+
+		private bool disposedValue = false;
 
 		protected virtual void Dispose(bool disposing)
 		{
@@ -19,30 +44,18 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				if (disposing)
 				{
-					// TODO: マネージ状態を破棄します (マネージ オブジェクト)。
 				}
-
-				// TODO: アンマネージ リソース (アンマネージ オブジェクト) を解放し、下のファイナライザーをオーバーライドします。
-				// TODO: 大きなフィールドを null に設定します。
 
 				disposedValue = true;
 			}
 		}
 
-		// TODO: 上の Dispose(bool disposing) にアンマネージ リソースを解放するコードが含まれる場合にのみ、ファイナライザーをオーバーライドします。
-		// ~Platform() {
-		//   // このコードを変更しないでください。クリーンアップ コードを上の Dispose(bool disposing) に記述します。
-		//   Dispose(false);
-		// }
-
-		// このコードは、破棄可能なパターンを正しく実装できるように追加されました。
 		public void Dispose()
 		{
-			// このコードを変更しないでください。クリーンアップ コードを上の Dispose(bool disposing) に記述します。
 			Dispose(true);
-			// TODO: 上のファイナライザーがオーバーライドされる場合は、次の行のコメントを解除してください。
-			// GC.SuppressFinalize(this);
+			GC.SuppressFinalize(this);
 		}
+
 		#endregion
 
 
