@@ -46,7 +46,9 @@
     <Compile Include="ExportRendererAttribute.cs" />
     <Compile Include="Forms.cs" />
     <Compile Include="IVisualElementRenderer.cs" />
+    <Compile Include="Platform.cs" />
     <Compile Include="VisualElementChangedEventArgs.cs" />
+    <Compile Include="VisualElementPackager.cs" />
     <Compile Include="VisualElementRenderer.cs">
       <SubType>Form</SubType>
     </Compile>
