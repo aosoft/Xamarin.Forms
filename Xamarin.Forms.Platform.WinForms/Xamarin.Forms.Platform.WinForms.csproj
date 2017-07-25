@@ -43,11 +43,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvertExtensions.cs" />
-    <Compile Include="DefaultRenderer.cs" />
+    <Compile Include="DefaultRenderer.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ExportRendererAttribute.cs" />
     <Compile Include="Forms.cs" />
     <Compile Include="IVisualElementRenderer.cs" />
-    <Compile Include="Platform.cs" />
+    <Compile Include="ViewRenderer.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="VisualElementChangedEventArgs.cs" />
     <Compile Include="VisualElementPackager.cs" />
     <Compile Include="VisualElementRenderer.cs">

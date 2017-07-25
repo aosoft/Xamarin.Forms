@@ -1,12 +1,7 @@
 ﻿using System;
+using System.Windows.Forms;
 
-#if WINDOWS_UWP
-
-namespace Xamarin.Forms.Platform.UWP
-#else
-
-namespace Xamarin.Forms.Platform.WinRT
-#endif
+namespace Xamarin.Forms.Platform.WinForms
 {
 	public static class VisualElementExtensions
 	{
@@ -15,13 +10,13 @@ namespace Xamarin.Forms.Platform.WinRT
 			if (self == null)
 				throw new ArgumentNullException("self");
 
-			IVisualElementRenderer renderer = Platform.GetRenderer(self);
+			IVisualElementRenderer renderer = WinFormsPlatform.GetRenderer(self);
 			if (renderer == null)
 			{
 #pragma warning disable 618
 				renderer = RendererFactory.CreateRenderer(self);
 #pragma warning restore 618
-				Platform.SetRenderer(self, renderer);
+				WinFormsPlatform.SetRenderer(self, renderer);
 			}
 
 			return renderer;
@@ -32,7 +27,7 @@ namespace Xamarin.Forms.Platform.WinRT
 			if (self == null)
 				throw new ArgumentNullException("self");
 
-			IVisualElementRenderer renderer = Platform.GetRenderer(self);
+			IVisualElementRenderer renderer = WinFormsPlatform.GetRenderer(self);
 
 			foreach (Element element in self.Descendants())
 			{
@@ -40,18 +35,18 @@ namespace Xamarin.Forms.Platform.WinRT
 				if (visual == null)
 					continue;
 
-				IVisualElementRenderer childRenderer = Platform.GetRenderer(visual);
+				IVisualElementRenderer childRenderer = WinFormsPlatform.GetRenderer(visual);
 				if (childRenderer != null)
 				{
 					childRenderer.Dispose();
-					Platform.SetRenderer(visual, null);
+					WinFormsPlatform.SetRenderer(visual, null);
 				}
 			}
 
 			if (renderer != null)
 			{
 				renderer.Dispose();
-				Platform.SetRenderer(self, null);
+				WinFormsPlatform.SetRenderer(self, null);
 			}
 		}
 	}

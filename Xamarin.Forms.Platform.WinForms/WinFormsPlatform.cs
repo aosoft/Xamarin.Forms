@@ -3,19 +3,94 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Xamarin.Forms.Internals;
 
 namespace Xamarin.Forms.Platform.WinForms
 {
-	public class WinFormsPlatform : BindableObject, IPlatform, INavigation, IDisposable
+	public class WinFormsPlatform : IPlatform, INavigation, IDisposable
 	{
-        #region Constructor / Dispose
+		readonly Control _container;
+		Page _currentPage;
+		readonly NavigationModel _navModel = new NavigationModel();
 
-        public void Dispose()
-        {
-        }
+		#region Constructor / Dispose
+
+		public void Dispose()
+		{
+		}
 
 		#endregion
+
+		internal static readonly BindableProperty RendererProperty = BindableProperty.CreateAttached("Renderer",
+			typeof(IVisualElementRenderer), typeof(WinFormsPlatform), default(IVisualElementRenderer));
+
+		public static IVisualElementRenderer GetRenderer(VisualElement element)
+		{
+			return (IVisualElementRenderer)element.GetValue(RendererProperty);
+		}
+
+		public static void SetRenderer(VisualElement element, IVisualElementRenderer value)
+		{
+			element.SetValue(RendererProperty, value);
+			element.IsPlatformEnabled = value != null;
+		}
+
+		public static IVisualElementRenderer CreateRenderer(VisualElement element)
+		{
+			if (element == null)
+				throw new ArgumentNullException(nameof(element));
+
+			IVisualElementRenderer renderer = Registrar.Registered.GetHandler<IVisualElementRenderer>(element.GetType()) ??
+											  new DefaultRenderer();
+			renderer.SetElement(element);
+			return renderer;
+		}
+
+		internal void SetPage(Page newRoot)
+		{
+			if (newRoot == null)
+				throw new ArgumentNullException(nameof(newRoot));
+
+			_navModel.Clear();
+
+			_navModel.Push(newRoot, null);
+			SetCurrent(newRoot, true);
+			Application.Current.NavigationProxy.Inner = this;
+		}
+
+		async void SetCurrent(Page newPage, bool popping = false, Action completedCallback = null)
+		{
+			if (newPage == _currentPage)
+				return;
+
+			newPage.Platform = this;
+
+			if (_currentPage != null)
+			{
+				Page previousPage = _currentPage;
+				IVisualElementRenderer previousRenderer = GetRenderer(previousPage);
+				_container.Children.Remove(previousRenderer.ContainerElement);
+
+				if (popping)
+					previousPage.Cleanup();
+			}
+
+			newPage.Layout(ContainerBounds);
+
+			IVisualElementRenderer pageRenderer = newPage.GetOrCreateRenderer();
+			_container.Children.Add(pageRenderer.ContainerElement);
+
+			pageRenderer.ContainerElement.Width = _container.ActualWidth;
+			pageRenderer.ContainerElement.Height = _container.ActualHeight;
+
+			completedCallback?.Invoke();
+
+			_currentPage = newPage;
+
+			UpdateToolbarTracker();
+			await UpdateToolbarItems();
+		}
 
 		#region IPlatform
 
@@ -32,16 +107,16 @@ namespace Xamarin.Forms.Platform.WinForms
         {
             get
             {
-                throw new NotImplementedException();
-            }
+				return _navModel.Tree.Last();
+			}
         }
 
 		public IReadOnlyList<Page> NavigationStack
         {
             get
             {
-                throw new NotImplementedException();
-            }
+				return _navModel.Modals.ToList();
+			}
         }
 
 		public void InsertPageBefore(Page page, Page before)
@@ -91,12 +166,21 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public Task PushModalAsync(Page page)
 		{
-			throw new NotImplementedException();
+			if (page == null)
+				throw new ArgumentNullException(nameof(page));
+
+			var tcs = new TaskCompletionSource<bool>();
+			_navModel.PushModal(page);
+			//SetCurrent(page, completedCallback: () => tcs.SetResult(true));
+			return tcs.Task;
 		}
 
 		public Task PushModalAsync(Page page, bool animated)
 		{
-			throw new NotImplementedException();
+			var tcs = new TaskCompletionSource<Page>();
+			Page result = _navModel.PopModal();
+			//SetCurrent(_navModel.CurrentPage, true, () => tcs.SetResult(result));
+			return tcs.Task;
 		}
 
 		public void RemovePage(Page page)
