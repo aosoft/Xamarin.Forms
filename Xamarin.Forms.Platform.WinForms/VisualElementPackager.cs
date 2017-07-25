@@ -88,7 +88,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				if (child == null)
 					continue;
 
-				IVisualElementRenderer childRenderer = Platform.GetRenderer(child);
+				IVisualElementRenderer childRenderer = WinFormsPlatform.GetRenderer(child);
 
 				if (childRenderer == null)
 				{
@@ -106,8 +106,8 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (view == null)
 				return;
 
-			IVisualElementRenderer childRenderer = Platform.CreateRenderer(view);
-			Platform.SetRenderer(view, childRenderer);
+			IVisualElementRenderer childRenderer = WinFormsPlatform.CreateRenderer(view);
+			WinFormsPlatform.SetRenderer(view, childRenderer);
 
 			if (_row > 0)
 				Windows.UI.Xaml.Controls.Grid.SetRow(childRenderer.ContainerElement, _row);
@@ -130,7 +130,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			if (view == null)
 				return;
 
-			IVisualElementRenderer childRenderer = Platform.GetRenderer(view);
+			IVisualElementRenderer childRenderer = WinFormsPlatform.GetRenderer(view);
 			if (childRenderer != null)
 			{
 				if (_row > 0)
