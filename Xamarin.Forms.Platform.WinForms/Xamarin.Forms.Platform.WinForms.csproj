@@ -53,6 +53,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VisualElementChangedEventArgs.cs" />
+    <Compile Include="VisualElementExtensions.cs" />
     <Compile Include="VisualElementPackager.cs" />
     <Compile Include="VisualElementRenderer.cs">
       <SubType>Form</SubType>
