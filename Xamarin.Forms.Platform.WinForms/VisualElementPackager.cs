@@ -79,7 +79,7 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void EnsureZIndex()
 		{
-			if (ElementController.LogicalChildren.Count == 0)
+			/*if (ElementController.LogicalChildren.Count == 0)
 				return;
 
 			for (var z = 0; z < ElementController.LogicalChildren.Count; z++)
@@ -96,7 +96,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				}
 
 				Canvas.SetZIndex(childRenderer.ContainerElement, z + 1);
-			}
+			}*/
 		}
 
 		void OnChildAdded(object sender, ElementEventArgs e)
@@ -109,6 +109,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			IVisualElementRenderer childRenderer = WinFormsPlatform.CreateRenderer(view);
 			WinFormsPlatform.SetRenderer(view, childRenderer);
 
+			/*
 			if (_row > 0)
 				Windows.UI.Xaml.Controls.Grid.SetRow(childRenderer.ContainerElement, _row);
 			if (_rowSpan > 0)
@@ -117,8 +118,9 @@ namespace Xamarin.Forms.Platform.WinForms
 				Windows.UI.Xaml.Controls.Grid.SetColumn(childRenderer.ContainerElement, _column);
 			if (_columnSpan > 0)
 				Windows.UI.Xaml.Controls.Grid.SetColumnSpan(childRenderer.ContainerElement, _columnSpan);
+			*/
 
-			_panel.Children.Add(childRenderer.ContainerElement);
+			_panel.Controls.Add(childRenderer.ContainerElement);
 
 			EnsureZIndex();
 		}
@@ -133,6 +135,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			IVisualElementRenderer childRenderer = WinFormsPlatform.GetRenderer(view);
 			if (childRenderer != null)
 			{
+				/*
 				if (_row > 0)
 					childRenderer.ContainerElement.ClearValue(Windows.UI.Xaml.Controls.Grid.RowProperty);
 				if (_rowSpan > 0)
@@ -141,8 +144,8 @@ namespace Xamarin.Forms.Platform.WinForms
 					childRenderer.ContainerElement.ClearValue(Windows.UI.Xaml.Controls.Grid.ColumnProperty);
 				if (_columnSpan > 0)
 					childRenderer.ContainerElement.ClearValue(Windows.UI.Xaml.Controls.Grid.ColumnSpanProperty);
-
-				_panel.Children.Remove(childRenderer.ContainerElement);
+				*/
+				_panel.Controls.Remove(childRenderer.ContainerElement);
 
 				view.Cleanup();
 			}

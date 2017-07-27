@@ -10,6 +10,7 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class WinFormsPlatform : IPlatform, INavigation, IDisposable
 	{
+		Rectangle _bounds;
 		readonly Control _container;
 		Page _currentPage;
 		readonly NavigationModel _navModel = new NavigationModel();
@@ -70,7 +71,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				Page previousPage = _currentPage;
 				IVisualElementRenderer previousRenderer = GetRenderer(previousPage);
-				_container.Children.Remove(previousRenderer.ContainerElement);
+				_container.Controls.Remove(previousRenderer.ContainerElement);
 
 				if (popping)
 					previousPage.Cleanup();
@@ -79,17 +80,39 @@ namespace Xamarin.Forms.Platform.WinForms
 			newPage.Layout(ContainerBounds);
 
 			IVisualElementRenderer pageRenderer = newPage.GetOrCreateRenderer();
-			_container.Children.Add(pageRenderer.ContainerElement);
+			_container.Controls.Add(pageRenderer.ContainerElement);
 
-			pageRenderer.ContainerElement.Width = _container.ActualWidth;
-			pageRenderer.ContainerElement.Height = _container.ActualHeight;
+			pageRenderer.ContainerElement.Width = _container.Width;
+			pageRenderer.ContainerElement.Height = _container.Height;
 
 			completedCallback?.Invoke();
 
 			_currentPage = newPage;
 
-			UpdateToolbarTracker();
-			await UpdateToolbarItems();
+			//UpdateToolbarTracker();
+			//await UpdateToolbarItems();
+		}
+
+		internal virtual Rectangle ContainerBounds
+		{
+			get { return _bounds; }
+		}
+
+		internal void UpdatePageSizes()
+		{
+			Rectangle bounds = ContainerBounds;
+			if (bounds.IsEmpty)
+				return;
+			foreach (Page root in _navModel.Roots)
+			{
+				root.Layout(bounds);
+				IVisualElementRenderer renderer = GetRenderer(root);
+				if (renderer != null)
+				{
+					renderer.ContainerElement.Width = _container.Width;
+					renderer.ContainerElement.Height = _container.Height;
+				}
+			}
 		}
 
 		#region IPlatform
