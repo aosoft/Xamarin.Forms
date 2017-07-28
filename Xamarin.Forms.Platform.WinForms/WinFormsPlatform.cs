@@ -60,7 +60,7 @@ namespace Xamarin.Forms.Platform.WinForms
 			Application.Current.NavigationProxy.Inner = this;
 		}
 
-		async void SetCurrent(Page newPage, bool popping = false, Action completedCallback = null)
+		/*async*/ void SetCurrent(Page newPage, bool popping = false, Action completedCallback = null)
 		{
 			if (newPage == _currentPage)
 				return;
