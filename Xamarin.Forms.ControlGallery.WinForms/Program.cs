@@ -17,10 +17,10 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 			System.Windows.Forms.Application.EnableVisualStyles();
 			System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
-			var f = new Form();
+			var f = new Platform.WinForms.WinFormsPlatformRenderer();
 			Xamarin.Forms.Platform.WinForms.Forms.Init(f);
 
-			var app = new Xamarin.Forms.Controls.App();
+			//f.LoadApplication(application);
 			System.Windows.Forms.Application.Run(f);
 		}
 	}
