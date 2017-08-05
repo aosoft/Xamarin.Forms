@@ -9,14 +9,19 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class WinFormsPlatformRenderer : System.Windows.Forms.Form
 	{
+		private System.Windows.Forms.ContainerControl _container;
+
 		public WinFormsPlatformRenderer()
 		{
+			_container = new System.Windows.Forms.ContainerControl();
+			this.Controls.Add(_container);
+			Platform = new WinFormsPlatform(_container);
 		}
 
 		protected WinFormsPlatform Platform
 		{
 			get;
-		} = new WinFormsPlatform();
+		}
 
 		protected override void OnLoad(EventArgs e)
 		{
