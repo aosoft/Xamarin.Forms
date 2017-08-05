@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace Xamarin.Forms.Platform.WinForms
 {
 	public class VisualElementRenderer<TElement, TNativeElement> :
-		Form, IVisualElementRenderer, IDisposable, IEffectControlProvider
+		ContainerControl, IVisualElementRenderer, IDisposable, IEffectControlProvider
 		where TElement : VisualElement
 		where TNativeElement : Control
 	{
