@@ -8,5 +8,8 @@ namespace Xamarin.Forms.Platform.WinForms
 {
 	public class PageRenderer : VisualElementRenderer<Page, System.Windows.Forms.Panel>
 	{
+		public PageRenderer()
+		{
+		}
 	}
 }

@@ -13,11 +13,38 @@ namespace Xamarin.Forms.Platform.WinForms
 		where TElement : VisualElement
 		where TNativeElement : Control
 	{
+		VisualElementTracker<TElement, TNativeElement> _tracker;
+
 
 		protected override void Dispose(bool disposing)
 		{
 			base.Dispose(disposing);
 		}
+
+		protected VisualElementTracker<TElement, TNativeElement> Tracker
+		{
+			get { return _tracker; }
+			set
+			{
+				if (_tracker == value)
+					return;
+
+				if (_tracker != null)
+				{
+					_tracker.Dispose();
+					_tracker.Updated -= OnTrackerUpdated;
+				}
+
+				_tracker = value;
+
+				if (_tracker != null)
+				{
+					_tracker.Updated += OnTrackerUpdated;
+					UpdateTracker();
+				}
+			}
+		}
+
 
 		public TNativeElement Control { get; private set; }
 
@@ -47,6 +74,47 @@ namespace Xamarin.Forms.Platform.WinForms
 			else if (e.PropertyName == AutomationProperties.LabeledByProperty.PropertyName)
 				SetAutomationPropertiesLabeledBy();
 			*/
+		}
+
+		protected void SetNativeControl(TNativeElement control)
+		{
+			TNativeElement oldControl = Control;
+			Control = control;
+
+			if (oldControl != null)
+			{
+				Controls.Remove(oldControl);
+
+				//oldControl.Loaded -= OnControlLoaded;
+				oldControl.GotFocus -= OnControlGotFocus;
+				oldControl.LostFocus -= OnControlLostFocus;
+			}
+
+			UpdateTracker();
+
+			if (control == null)
+				return;
+
+			//Control.HorizontalAlignment = HorizontalAlignment.Stretch;
+			//Control.VerticalAlignment = VerticalAlignment.Stretch;
+
+			Controls.Add(control);
+
+			if (Element == null)
+				throw new InvalidOperationException(
+					"Cannot assign a native control without an Element; Renderer unbound and/or disposed. " +
+					"Please consult Xamarin.Forms renderers for reference implementation of OnElementChanged.");
+
+			Element.IsNativeStateConsistent = false;
+			//control.Loaded += OnControlLoaded;
+
+			control.GotFocus += OnControlGotFocus;
+			control.LostFocus += OnControlLostFocus;
+
+			UpdateBackgroundColor();
+
+			//if (Element != null && !string.IsNullOrEmpty(Element.AutomationId))
+			//	SetAutomationId(Element.AutomationId);
 		}
 
 		protected virtual void UpdateBackgroundColor()
@@ -88,6 +156,21 @@ namespace Xamarin.Forms.Platform.WinForms
 			*/
 		}
 
+		void OnControlGotFocus(object sender, EventArgs args)
+		{
+			((IVisualElementController)Element).SetValueFromRenderer(VisualElement.IsFocusedPropertyKey, true);
+		}
+
+		void OnControlLoaded(object sender, EventArgs args)
+		{
+			Element.IsNativeStateConsistent = true;
+		}
+
+		void OnControlLostFocus(object sender, EventArgs args)
+		{
+			((IVisualElementController)Element).SetValueFromRenderer(VisualElement.IsFocusedPropertyKey, false);
+		}
+
 		internal virtual void OnElementFocusChangeRequested(object sender, VisualElement.FocusRequestArgs args)
 		{
 			var control = Control as Control;
@@ -105,6 +188,10 @@ namespace Xamarin.Forms.Platform.WinForms
 			*/
 		}
 
+		void OnTrackerUpdated(object sender, EventArgs e)
+		{
+			UpdateNativeControl();
+		}
 
 		void UpdateEnabled()
 		{
@@ -117,15 +204,13 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		void UpdateTracker()
 		{
-			/*
 			if (_tracker == null)
 				return;
 
-			_tracker.PreventGestureBubbling = PreventGestureBubbling;
+			//_tracker.PreventGestureBubbling = PreventGestureBubbling;
 			_tracker.Control = Control;
 			_tracker.Element = Element;
 			_tracker.Container = ContainerElement;
-			*/
 		}
 
 
@@ -163,7 +248,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				Element.PropertyChanged += OnElementPropertyChanged;
 				Element.FocusChangeRequested += OnElementFocusChangeRequested;
 
-				/*if (AutoPackage && Packager == null)
+				if (AutoPackage && Packager == null)
 					Packager = new VisualElementPackager(this);
 
 				if (AutoTrack && Tracker == null)
@@ -177,7 +262,7 @@ namespace Xamarin.Forms.Platform.WinForms
 				//Loaded += (sender, args) => {
 				if (Packager != null)
 					Packager.Load();
-				//};*/
+				//};
 			}
 
 			OnElementChanged(new ElementChangedEventArgs<TElement>(oldElement, Element));

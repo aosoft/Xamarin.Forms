@@ -44,22 +44,25 @@
   <ItemGroup>
     <Compile Include="ConvertExtensions.cs" />
     <Compile Include="DefaultRenderer.cs">
-      <SubType>Form</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ExportRendererAttribute.cs" />
     <Compile Include="Forms.cs" />
     <Compile Include="IVisualElementRenderer.cs" />
+    <Compile Include="LabelRenderer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PageRenderer.cs">
-      <SubType>Form</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ViewRenderer.cs">
-      <SubType>Form</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="VisualElementChangedEventArgs.cs" />
     <Compile Include="VisualElementExtensions.cs" />
     <Compile Include="VisualElementPackager.cs" />
     <Compile Include="VisualElementRenderer.cs">
-      <SubType>Form</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="VisualElementTracker.cs" />
     <Compile Include="WinFormsPlatform.cs" />

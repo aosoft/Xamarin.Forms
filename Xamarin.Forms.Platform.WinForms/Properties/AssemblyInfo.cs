@@ -40,3 +40,4 @@ using Xamarin.Forms.Platform.WinForms;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: ExportRenderer(typeof(Page), typeof(PageRenderer))]
+[assembly: ExportRenderer(typeof(Label), typeof(LabelRenderer))]
