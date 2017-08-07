@@ -11,6 +11,12 @@ namespace Xamarin.Forms.Platform.WinForms
 	{
 		public LabelRenderer()
 		{
+			Anchor =
+				System.Windows.Forms.AnchorStyles.Left |
+				System.Windows.Forms.AnchorStyles.Top |
+				System.Windows.Forms.AnchorStyles.Right |
+				System.Windows.Forms.AnchorStyles.Bottom;
+			AutoSize = true;
 		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<Label> e)
@@ -21,7 +27,13 @@ namespace Xamarin.Forms.Platform.WinForms
 			{
 				if (Control == null)
 				{
-					SetNativeControl(new System.Windows.Forms.Label());
+					var elem = new System.Windows.Forms.Label();
+					elem.Anchor =
+						System.Windows.Forms.AnchorStyles.Left |
+						System.Windows.Forms.AnchorStyles.Top |
+						System.Windows.Forms.AnchorStyles.Right |
+						System.Windows.Forms.AnchorStyles.Bottom;
+					SetNativeControl(elem);
 				}
 
 				//_isInitiallyDefault = Element.IsDefault();

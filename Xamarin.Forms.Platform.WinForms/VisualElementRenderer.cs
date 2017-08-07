@@ -15,6 +15,15 @@ namespace Xamarin.Forms.Platform.WinForms
 	{
 		VisualElementTracker<TElement, TNativeElement> _tracker;
 
+		public VisualElementRenderer()
+		{
+			Anchor =
+				System.Windows.Forms.AnchorStyles.Left |
+				System.Windows.Forms.AnchorStyles.Top |
+				System.Windows.Forms.AnchorStyles.Right |
+				System.Windows.Forms.AnchorStyles.Bottom;
+			AutoSize = true;
+		}
 
 		protected override void Dispose(bool disposing)
 		{
