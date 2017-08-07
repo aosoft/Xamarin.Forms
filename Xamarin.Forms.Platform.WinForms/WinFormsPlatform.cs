@@ -11,13 +11,13 @@ namespace Xamarin.Forms.Platform.WinForms
 	public class WinFormsPlatform : IPlatform, INavigation, IDisposable
 	{
 		Rectangle _bounds;
-		readonly ContainerControl _container;
+		readonly Form _container;
 		Page _currentPage;
 		readonly NavigationModel _navModel = new NavigationModel();
 
 		#region Constructor / Dispose
 
-		internal WinFormsPlatform(ContainerControl container)
+		internal WinFormsPlatform(Form container)
 		{
 			_container = container;
 		}

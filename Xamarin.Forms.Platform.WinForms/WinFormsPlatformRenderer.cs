@@ -13,9 +13,9 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public WinFormsPlatformRenderer()
 		{
-			_container = new System.Windows.Forms.ContainerControl();
-			this.Controls.Add(_container);
-			Platform = new WinFormsPlatform(_container);
+			//_container = new System.Windows.Forms.ContainerControl();
+			//this.Controls.Add(_container);
+			Platform = new WinFormsPlatform(this);
 		}
 
 		protected WinFormsPlatform Platform
