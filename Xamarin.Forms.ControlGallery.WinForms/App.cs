@@ -15,12 +15,7 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 				HorizontalTextAlignment = TextAlignment.Center,
 				Text = "Welcome to Xamarin Forms!"
 			};
-			MainPage = new ContentPage
-			{
-				Content = label
-			};
 
-			/*
 			var layout = new StackLayout();
 			layout.VerticalOptions = LayoutOptions.Center;
 			layout.Children.Add(label);
@@ -29,7 +24,6 @@ namespace Xamarin.Forms.ControlGallery.WinForms
 			{
 				Content = layout
 			};
-			*/
 		}
 
 		protected override void OnStart()

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace Xamarin.Forms.Platform.WinForms
 {
 	public class VisualElementRenderer<TElement, TNativeElement> :
-		ContainerControl, IVisualElementRenderer, IDisposable, IEffectControlProvider
+		Panel, IVisualElementRenderer, IDisposable, IEffectControlProvider
 		where TElement : VisualElement
 		where TNativeElement : Control
 	{
@@ -45,11 +45,15 @@ namespace Xamarin.Forms.Platform.WinForms
 			}
 		}
 
+		VisualElementPackager Packager { get; set; }
 
 		public TNativeElement Control { get; private set; }
 
 		public TElement Element { get; private set; }
 
+		protected bool AutoPackage { get; set; } = true;
+
+		protected bool AutoTrack { get; set; } = true;
 
 
 		protected virtual void OnElementChanged(ElementChangedEventArgs<TElement> e)

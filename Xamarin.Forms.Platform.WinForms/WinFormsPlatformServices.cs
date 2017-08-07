@@ -34,7 +34,14 @@ namespace Xamarin.Forms.Platform.WinForms
 
 		public void BeginInvokeOnMainThread(Action action)
 		{
-			_mainForm.BeginInvoke(action);
+			if (_mainForm.IsHandleCreated)
+			{
+				_mainForm.BeginInvoke(action);
+			}
+			else
+			{
+				action();
+			}
 		}
 
 		public Ticker CreateTicker()
