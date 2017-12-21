@@ -185,6 +185,11 @@
     <Compile Include="Packagers\VisualElementPackager.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="PlatformConfigurationExtensions.cs" />
+    <Compile Include="PlatformConfiguration\ExtensionPointsGTK.cs" />
+    <Compile Include="PlatformConfiguration\GTKSpecific\BoxView.cs" />
+    <Compile Include="PlatformConfiguration\GTKSpecific\NavigationPage.cs" />
+    <Compile Include="PlatformConfiguration\GTKSpecific\TabbedPage.cs" />
+    <Compile Include="PlatformConfiguration\GTKSpecific\TabPosition.cs" />
     <Compile Include="PlatformEffect.cs" />
     <Compile Include="PlatformRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
