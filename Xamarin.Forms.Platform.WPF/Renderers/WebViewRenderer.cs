@@ -115,7 +115,7 @@ namespace Xamarin.Forms.Platform.WPF
 		async Task SaveToIsoStore(string fileName, string html)
 		{
 			IIsolatedStorageFile store = Device.PlatformServices.GetUserStoreForApplication();
-			using (var file = await store.OpenFileAsync(fileName, FileMode.CreateNew, FileAccess.Write).ConfigureAwait(false))
+			using (var file = await store.OpenFileAsync(fileName, Internals.FileMode.CreateNew, Internals.FileAccess.Write).ConfigureAwait(false))
 			{
 				byte[] bytes = Encoding.UTF8.GetBytes(html);
 				await file.WriteAsync(bytes, 0, bytes.Length).ConfigureAwait(false);

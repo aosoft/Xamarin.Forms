@@ -21,7 +21,7 @@ namespace Xamarin.Forms.Platform.WPF
 			get { return !System.Windows.Application.Current.Dispatcher.CheckAccess(); }
 		}
 
-		public string RuntimePlatform => Device.WPF;
+		public string RuntimePlatform => "WPF";//Device.WPF;
 
 		public void OpenUriAction(Uri uri)
 		{

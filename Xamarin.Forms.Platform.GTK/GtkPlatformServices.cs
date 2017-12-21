@@ -16,7 +16,7 @@ namespace Xamarin.Forms.Platform.GTK
 
         public bool IsInvokeRequired => Thread.CurrentThread.IsBackground;
 
-        public string RuntimePlatform => Device.GTK;
+		public string RuntimePlatform => "GTK";// Device.GTK;
 
         public void BeginInvokeOnMainThread(Action action)
         {
