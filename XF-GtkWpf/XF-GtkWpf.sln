@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.Platform.WPF", "..\Xamarin.Forms.Platform.WPF\Xamarin.Forms.Platform.WPF.csproj", "{140BC260-8B15-4D3A-B1B0-DDD8072918CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.Platform.GTK", "..\Xamarin.Forms.Platform.GTK\Xamarin.Forms.Platform.GTK.csproj", "{0D497738-2598-431D-8CAF-8FBF3D9F99EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{140BC260-8B15-4D3A-B1B0-DDD8072918CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{140BC260-8B15-4D3A-B1B0-DDD8072918CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{140BC260-8B15-4D3A-B1B0-DDD8072918CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{140BC260-8B15-4D3A-B1B0-DDD8072918CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D497738-2598-431D-8CAF-8FBF3D9F99EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D497738-2598-431D-8CAF-8FBF3D9F99EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D497738-2598-431D-8CAF-8FBF3D9F99EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D497738-2598-431D-8CAF-8FBF3D9F99EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62D3EC12-90A7-4A4F-86EF-1962512F6B9F}
+	EndGlobalSection
+EndGlobal
