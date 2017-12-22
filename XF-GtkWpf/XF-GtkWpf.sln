@@ -19,9 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.Xaml", "..\Xa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.Platform", "..\Xamarin.Forms.Platform\Xamarin.Forms.Platform.csproj", "{A68ABC14-137F-44EA-984C-BD6088B976FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.Xaml.Xamlc", "..\Xamarin.Forms.Xaml.Xamlc\Xamarin.Forms.Xaml.Xamlc.csproj", "{928A23F3-2330-4F9F-B6A3-BFE01FE2A2DF}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.Build.Tasks", "..\Xamarin.Forms.Build.Tasks\Xamarin.Forms.Build.Tasks.csproj", "{22F5266B-C827-4DA5-A9C0-6DACC22F9BF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.Build.Tasks", "..\Xamarin.Forms.Build.Tasks\Xamarin.Forms.Build.Tasks.csproj", "{8AB2486D-5D61-4ED0-A253-DB8D4158BDE5}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -62,14 +60,10 @@ Global
 		{A68ABC14-137F-44EA-984C-BD6088B976FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A68ABC14-137F-44EA-984C-BD6088B976FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A68ABC14-137F-44EA-984C-BD6088B976FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{928A23F3-2330-4F9F-B6A3-BFE01FE2A2DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{928A23F3-2330-4F9F-B6A3-BFE01FE2A2DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{928A23F3-2330-4F9F-B6A3-BFE01FE2A2DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{928A23F3-2330-4F9F-B6A3-BFE01FE2A2DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22F5266B-C827-4DA5-A9C0-6DACC22F9BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22F5266B-C827-4DA5-A9C0-6DACC22F9BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22F5266B-C827-4DA5-A9C0-6DACC22F9BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22F5266B-C827-4DA5-A9C0-6DACC22F9BF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB2486D-5D61-4ED0-A253-DB8D4158BDE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB2486D-5D61-4ED0-A253-DB8D4158BDE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB2486D-5D61-4ED0-A253-DB8D4158BDE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB2486D-5D61-4ED0-A253-DB8D4158BDE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
