@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.Platform", ".
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Forms.Build.Tasks", "..\Xamarin.Forms.Build.Tasks\Xamarin.Forms.Build.Tasks.csproj", "{8AB2486D-5D61-4ED0-A253-DB8D4158BDE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Forms.Xaml.Xamlg", "..\Xamarin.Forms.Xaml.Xamlg\Xamarin.Forms.Xaml.Xamlg.csproj", "{D597E3C6-1A50-4042-99FA-3E7CE28E4819}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		SharedApp\SharedApp.projitems*{11066184-eb7b-4f1b-bc20-a1b77b5a1233}*SharedItemsImports = 4
@@ -64,6 +66,10 @@ Global
 		{8AB2486D-5D61-4ED0-A253-DB8D4158BDE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AB2486D-5D61-4ED0-A253-DB8D4158BDE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AB2486D-5D61-4ED0-A253-DB8D4158BDE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D597E3C6-1A50-4042-99FA-3E7CE28E4819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D597E3C6-1A50-4042-99FA-3E7CE28E4819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D597E3C6-1A50-4042-99FA-3E7CE28E4819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D597E3C6-1A50-4042-99FA-3E7CE28E4819}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
